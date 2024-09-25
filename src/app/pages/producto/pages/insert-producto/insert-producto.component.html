@@ -1,0 +1,30 @@
+<mat-card class="edit-categoria-card">
+    <mat-card-header>
+      <mat-card-title>Registrar Producto</mat-card-title>
+    </mat-card-header>
+    <br>
+    <mat-card-content>
+      <form >
+        <div class="form-container">
+          
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" placeholder="Nombre" required>
+          </mat-form-field>
+          <div class="full-width">
+            <label>Subir Imagen</label>
+            <input type="file" accept="image/*" required>
+          </div>
+      
+          <div class="form-actions">
+            <button mat-raised-button color="primary">
+                Registrar
+              </button>
+              
+            <button mat-raised-button color="accent" >Cancelar</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

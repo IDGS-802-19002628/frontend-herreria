@@ -1,0 +1,66 @@
+.edit-producto-card {
+    max-width: 100%; /* Ancho máximo del contenedor de la tarjeta, ocupa todo el ancho disponible */
+    margin: auto;
+    padding: 16px;
+  }
+  
+  .mat-card-content {
+    display: flex;
+    flex-direction: column; /* Los elementos estarán en una columna */
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column; /* Los campos de formulario estarán en una columna */
+    gap: 16px; /* Espacio entre los campos de formulario */
+  }
+  
+  .full-width {
+    width: 100%; /* Los campos de formulario ocuparán todo el ancho disponible */
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 8px; /* Espacio entre los botones */
+    margin-top: 16px;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+  }
+  
+  .custom-red-button {
+    background-color: #f44336; /* Color rojo (material red A700) */
+    color: white;
+  
+    &:hover {
+      background-color: #d32f2f; /* Rojo más oscuro al pasar el cursor */
+    }
+  
+    &:focus {
+      outline: none; /* Elimina el borde del enfoque si no lo deseas */
+    }
+  }
+  .full-width {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .full-width label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .full-width input[type="file"] {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .full-width input[type="file"]:hover {
+    border-color: #007bff;
+  }
+  
