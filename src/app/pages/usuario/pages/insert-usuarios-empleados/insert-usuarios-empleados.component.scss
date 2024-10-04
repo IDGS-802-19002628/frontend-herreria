@@ -1,0 +1,13 @@
+.full-width input[type="file"] {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .full-width input[type="file"]:hover {
+    border-color: #007bff;
+  }
+  
