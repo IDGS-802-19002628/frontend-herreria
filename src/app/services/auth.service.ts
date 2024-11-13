@@ -14,8 +14,13 @@ export class AuthService {
   private ENDPOIN_VALIDATE = environment.ENDPOINT_VALIDATES;
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
-  public singIn(data: Login) {
-    return this.http.post(`${this.URL}api/login`, data);
+ 
+
+  public singIn(data: Login): Observable<Login> {
+    return this.http.post<Login>(`${this.URL}api/Login`, data)
+      .pipe(
+        catchError(err => throwError(() => err))
+      );
   }
 
  

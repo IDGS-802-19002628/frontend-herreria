@@ -28,6 +28,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { LadingPagesComponent } from './lading-pages/lading-pages.component';
 import { ProductoServicioComponent } from './producto-servicio/producto-servicio.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { ProductoServicioComponent } from './producto-servicio/producto-servicio
     ErrorPermisosComponent,
     LadingPagesComponent,
     ProductoServicioComponent,
+    LandingComponent,
   ],
 
 })

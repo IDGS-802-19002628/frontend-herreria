@@ -18,7 +18,7 @@
 
        
 
-          <div class="or-border m-t-30">DESKART</div>
+       
 
           <form class="m-t-30" [formGroup]="loginForm">
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" 
@@ -44,7 +44,7 @@
                 >Olvidaste tu contraseña?</a
               >
             </div>
-            <a mat-flat-button color="primary" class="w-100" (click)="login()" [disabled]="!loginForm.valid">
+            <a mat-flat-button color="primary" class="w-100" href="http://localhost:4200/dashboard" [disabled]="!loginForm.valid">
               Iniciar Sesión
             </a>
             <!-- Error mesaje -->

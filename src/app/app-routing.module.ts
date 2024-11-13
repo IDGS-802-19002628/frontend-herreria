@@ -1,3 +1,4 @@
+import { MaterialModule } from 'src/app/material.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
@@ -58,6 +59,12 @@ const routes: Routes = [
         path: 'usuarios',
         loadChildren: () =>
           import('./pages/usuario/usuario.module').then((m) => m.UsuarioModule),
+          
+      },
+      {
+        path: 'materiales',
+        loadChildren: () =>
+          import('./pages/material/material.module').then((m) => m.MaterialModule),
           
       },
   

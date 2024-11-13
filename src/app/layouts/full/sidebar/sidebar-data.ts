@@ -28,7 +28,7 @@ export const navItemsAdmistrador: NavItem[] = [
     route: '/proveedores',
   },
   {
-    displayName: 'Producto',
+    displayName: 'Producción',
     iconName: '',
     route: '/productos',
   },
@@ -36,6 +36,11 @@ export const navItemsAdmistrador: NavItem[] = [
     displayName: 'Categoria',
     iconName: '',
     route: '/categorias',
+  },
+  {
+    displayName: 'Material',
+    iconName: '',
+    route: '/materiales',
   },
 
 ];

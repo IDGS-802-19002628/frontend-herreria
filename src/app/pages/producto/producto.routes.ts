@@ -18,7 +18,7 @@ export const ProductoComponentsRoutes: Routes = [
       },
       {
         path: 'insert-producto',
-        component: EditProductoComponent,
+        component: InsertProductoComponent,
         data: { title: 'insertar Producto' }
       },
       {

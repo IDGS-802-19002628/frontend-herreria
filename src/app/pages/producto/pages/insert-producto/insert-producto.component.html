@@ -1,30 +1,54 @@
 <mat-card class="edit-categoria-card">
-    <mat-card-header>
-      <mat-card-title>Registrar Producto</mat-card-title>
-    </mat-card-header>
-    <br>
-    <mat-card-content>
-      <form >
-        <div class="form-container">
-          
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Nombre</mat-label>
-            <input matInput formControlName="nombre" placeholder="Nombre" required>
-          </mat-form-field>
-          <div class="full-width">
-            <label>Subir Imagen</label>
-            <input type="file" accept="image/*" required>
-          </div>
-      
-          <div class="form-actions">
-            <button mat-raised-button color="primary">
-                Registrar
-              </button>
-              
-            <button mat-raised-button color="accent" >Cancelar</button>
-          </div>
+  <mat-card-header>
+    <mat-card-title>Registrar Producto</mat-card-title>
+  </mat-card-header>
+  <br>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="registrarProducto()">
+      <div class="form-container">
+        
+        <!-- Nombre del Producto -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" placeholder="Nombre" required>
+        </mat-form-field>
+
+        <!-- Subir Imagen -->
+        <div class="full-width">
+          <label>Subir Imagen</label>
+          <input type="file" accept="image/*" (change)="onImageSelected($event)">
+          <mat-error *ngIf="form.get('imagen')?.hasError('required')">Imagen es obligatoria</mat-error>
         </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
-  
+
+        <!-- Id de Producción -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Id de Producción</mat-label>
+          <input matInput formControlName="produccion_id" placeholder="ID de Producción" required>
+        </mat-form-field>
+
+        <!-- Cantidad -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Cantidad</mat-label>
+          <input matInput formControlName="cantidad" type="number" placeholder="Cantidad" required>
+        </mat-form-field>
+
+        <!-- Precio -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Precio</mat-label>
+          <input matInput formControlName="precio" type="number" placeholder="Precio" required>
+        </mat-form-field>
+
+        <!-- Lote -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Lote</mat-label>
+          <input matInput formControlName="lote" placeholder="Lote" required>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Registrar</button>
+          <button mat-raised-button color="accent">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,80 @@
+<header>
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">Soldaline</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="http://localhost:4200/authentication/login">Iniciar Sesión</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0);" (click)="togglePurchases()">Compras</a>
+        </li>
+      </ul>
+      <form class="form-inline ml-auto">
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+      <div class="dropdown text-end ml-3 carrito-color">
+        <a href="javascript:void(0);" class="d-block link-body-emphasis text-decoration-none dropdown-toggle p" (click)="toggleCart()" aria-expanded="false">
+          Carrito
+          <span class="badge bg-danger" *ngIf="cart.length > 0">{{ cart.length }}</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="container mt-5">
+  <h1 class="text-center">Tienda en Línea</h1>
+
+  <div class="categories text-center mb-4">
+    <h2>Categorías</h2>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-outline-primary mx-2">Protecciones de Puerta</button>
+      <button class="btn btn-outline-primary mx-2">Protecciones de Ventanas</button>
+      <button class="btn btn-outline-primary mx-2">Protecciones Premium</button>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>Productos Destacados</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4 product-card" *ngFor="let product of products">
+          <img [src]="product.imageUrl" alt="{{ product.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text"><strong>${{ product.price }}</strong></p>
+            <button class="btn btn-primary" (click)="addToCart(product)">Agregar al Carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 cart" *ngIf="showCart">
+      <h4>Carrito de Compras</h4>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let item of cart">
+          {{ item.name }} - ${{ item.price }}
+        </li>
+        <li class="list-group-item" *ngIf="cart.length > 0"><strong>Total: ${{ getTotal() }}</strong></li>
+      </ul>
+      <button class="btn btn-success w-100 mt-3" (click)="checkout()">Proceder al Pago</button>
+    </div>
+
+    <div class="col-md-4 purchases" *ngIf="showPurchases">
+      <h4>Compras Realizadas</h4>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let item of purchases">
+          {{ item.name }} - ${{ item.price }}
+        </li>
+        <li class="list-group-item" *ngIf="purchases.length === 0">No tienes compras realizadas.</li>
+      </ul>
+    </div>
+  </div>
+</div>

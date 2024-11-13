@@ -54,81 +54,46 @@
 
         <div class="responsive-table">
             <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-                <!-- Columnas    displayedColumns: string[] = ['chrClave', 'chrNombre', 'chrPaterno', 'chrMaterno', 'chrEmail', 'chrTelefono', 'chrTipoUsuario', 'chrClaveEscuela', 'chrStatus'];-->
-                
-                
-                <ng-container matColumnDef="Nombre">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="f-s-14" (dblclick)="consultarGrupo(element.idProveedor)">
-                        {{element.nombre}}
-                    </mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="Rol">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Rol</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="f-s-14" >
-                        {{element.nombrep}}
-                        </mat-cell>
-                </ng-container>
-
-               <!--   <ng-container matColumnDef="chrPaterno">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Paterno</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.chrPaterno}}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="chrMaterno">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Materno</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.chrMaterno}}</mat-cell>
-                </ng-container>
-                -->
-
-                <ng-container matColumnDef="Direccion">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="f-s-14" >
-                        </mat-cell>
-                </ng-container>
- 
-                
-                <ng-container matColumnDef="Estatus">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-                    <span class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14"
-                          *ngIf="element.status === 1">
-                      Activo
-                    </span>
-                    <span class="bg-light-danger text-danger rounded f-w-600 p-y-6 p-x-16 f-s-14"
-                          *ngIf="element.status === 2">
-                      Inactivo
-                    </span>
-                  </mat-cell>
-                  
-                  </ng-container>
-
-               
-
-              <!--  <ng-container matColumnDef="acciones">
-                    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="mat-body-1">
-                        <button mat-icon-button color="primary" [routerLink]="['/usuarios/edit-usuario']">
-                            <tabler-icon name="edit"></tabler-icon>
-                        </button>
-                        <button mat-icon-button color="warn">
-                            <tabler-icon name="trash"></tabler-icon>
-                        </button>
-                    </mat-cell>
-                </ng-container>
-
-                -->
-
-
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              <ng-container matColumnDef="Nombre">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="f-s-14">
+                  {{ element.nombre }}
+                </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Rol">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Rol</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="f-s-14">
+                  {{ element.nombrep }}
+                </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Direccion">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="f-s-14">
+                  {{ element.direccion }}
+                </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Estatus">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span *ngIf="element.status === 1" class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14">
+                    Activo
+                  </span>
+                  <span *ngIf="element.status === 2" class="bg-light-danger text-danger rounded f-w-600 p-y-6 p-x-16 f-s-14">
+                    Inactivo
+                  </span>
+                </mat-cell>
+              </ng-container>
+          
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
             </mat-table>
-
+          
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-
-
-        </div>
+          </div>
+          
     </mat-card-content>
 
 </mat-card>
