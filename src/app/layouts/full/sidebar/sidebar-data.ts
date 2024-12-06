@@ -27,21 +27,13 @@ export const navItemsAdmistrador: NavItem[] = [
     iconName: '',
     route: '/proveedores',
   },
+ 
   {
-    displayName: 'Producción',
+    displayName: 'Productos',
     iconName: '',
     route: '/productos',
   },
-  {
-    displayName: 'Categoria',
-    iconName: '',
-    route: '/categorias',
-  },
-  {
-    displayName: 'Material',
-    iconName: '',
-    route: '/materiales',
-  },
+
 
 ];
 

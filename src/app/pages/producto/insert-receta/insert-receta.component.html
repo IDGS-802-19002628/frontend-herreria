@@ -1,0 +1,72 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <mat-card-title>Registrar Receta</mat-card-title>
+    </mat-card-content>
+  
+    <mat-card-content class="p-24">
+      <form class="row" [formGroup]="insertReceta" (ngSubmit)="onSubmit()">
+        <!-- Campo: ID de Fabricación -->
+        <mat-form-field appearance="fill">
+            <mat-label>Producto</mat-label>
+            <mat-select formControlName="idFabricacion" required (selectionChange)="onSelectProducto($event.value)">
+              <mat-option *ngFor="let producto of Producto" [value]="producto.id">
+                {{producto.nombreProducto}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="insertReceta.get('idFabricacion')?.hasError('required')">
+              El producto es obligatorio.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Campo: Tipo de Protección (Se llena automáticamente) -->
+      <mat-form-field class="col-12 col-md-6 col-lg-6 m-r-3 m-t-12">
+        <mat-label>Tipo de Protección</mat-label>
+        <input matInput formControlName="tipoProteccion" [readonly]="true" />
+      </mat-form-field>
+  
+        <!-- Campo: Material -->
+        <mat-form-field class="col-12 col-md-6 col-lg-6 m-r-3 m-t-12">
+          <mat-label>Material</mat-label>
+          <input matInput placeholder="Material" formControlName="material" />
+        </mat-form-field>
+  
+        <!-- Campo: Cantidad -->
+        <mat-form-field class="col-12 col-md-6 col-lg-6 m-r-3 m-t-12">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" />
+        </mat-form-field>
+  
+    
+  
+        <!-- Campo: Descripción -->
+        <mat-form-field class="col-12 col-md-6 col-lg-6 m-r-3 m-t-12">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput rows="3" placeholder="Descripción" formControlName="descripcion"></textarea>
+        </mat-form-field>
+  
+        <!-- Campo: Fecha de Creación -->
+        <mat-form-field class="col-12 col-md-6 col-lg-6 m-r-3 m-t-12">
+            <mat-label>Fecha de Creación</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Seleccionar fecha" formControlName="fechaCreacion" [readonly]="true" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          
+  
+          
+  
+        
+  
+        <!-- Botones -->
+        <div class="d-flex justify-content-end m-t-24 col-12">
+          <button mat-raised-button color="primary" type="submit" >
+            <mat-icon><i-tabler name="device-floppy"></i-tabler></mat-icon> Guardar
+          </button>
+          <button mat-raised-button color="accent" class="m-l-12" routerLink="/recetas">
+            <mat-icon><i-tabler name="close"></i-tabler></mat-icon> Cancelar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

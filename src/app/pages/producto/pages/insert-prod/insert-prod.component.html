@@ -1,0 +1,46 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <mat-card-title>Registrar Datos de Producción</mat-card-title>
+    </mat-card-content>
+  
+    <mat-card-content class="p-24">
+      <form [formGroup]="insertProduccion" (ngSubmit)="onSubmit()">
+        <mat-form-field class="col-12 col-md-6 m-t-12">
+          <mat-label>Usuario</mat-label>
+          <input matInput type="text" [value]="usuarioNombre" disabled /> <!-- Mostrar nombre del usuario -->
+        </mat-form-field>
+  
+        <mat-form-field class="col-12 col-md-6 m-t-12" appearance="fill">
+          <mat-label>Producto</mat-label>
+          <mat-select formControlName="fabricacionId" required>
+            <mat-option *ngFor="let producto of Producto" [value]="producto.id">
+              {{ producto.nombreProducto }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="insertProduccion.get('fabricacionId')?.hasError('required')">
+            El producto es obligatorio.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-12 col-md-6 m-t-12">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" />
+        </mat-form-field>
+  
+        <mat-form-field class="col-12 m-t-12">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput placeholder="Descripción del producto" formControlName="descripcion"></textarea>
+        </mat-form-field>
+  
+        <div class="d-flex justify-content-end m-t-24">
+          <button mat-raised-button color="primary" [disabled]="!insertProduccion.valid">
+            <mat-icon><i-tabler name="device-floppy"></i-tabler></mat-icon> Guardar
+          </button>
+          <button mat-raised-button color="accent" class="m-l-12" routerLink="/productos">
+            <mat-icon><i-tabler name="close"></i-tabler></mat-icon> Cancelar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

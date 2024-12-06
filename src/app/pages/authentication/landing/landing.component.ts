@@ -80,4 +80,11 @@ export class LandingComponent implements OnInit {
       this.purchases = JSON.parse(savedPurchases);
     }
   }
+  removeFromCart(product: Product) {
+    const index = this.cart.indexOf(product);
+    if (index > -1) {
+      this.cart.splice(index, 1);
+    }
+  }
+  
 }

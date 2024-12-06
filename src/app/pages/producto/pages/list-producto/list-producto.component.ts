@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Producto } from '../../interfaces/producto';
+import { Fabricacion } from '../../interfaces/producto';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProduccionService } from 'src/app/pages/produccion/services/produccion.service';
@@ -18,9 +18,9 @@ export class ListProductoComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  public displayedColumns: string[] = ['Nombre', 'Precio', 'Stock', 'Descripcion', 'Estatus'];
-  public dataSource = new MatTableDataSource<Producto>([]);  // Inicializamos con un arreglo vacío
-  public Producto: Producto[] = [];
+  public displayedColumns: string[] = ['Nombre', 'Categoria','Estatus'];
+  public dataSource = new MatTableDataSource<Fabricacion>([]);  // Inicializamos con un arreglo vacío
+  public Producto: Fabricacion[] = [];
   public isLoading: boolean = false;
 
   constructor(
@@ -41,17 +41,23 @@ export class ListProductoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.cargarProductos(); // Cargar productos al iniciar el componente
+   this.getAllProductos(); // Cargar productos al iniciar el componente
   }
 
-  // Método para cargar los productos desde LocalStorage
-  cargarProductos(): void {
-    const productos = JSON.parse(localStorage.getItem('productos') || '[]');
-    this.Producto = productos;
-    this.dataSource.data = this.Producto; // Actualizamos el datasource con los productos cargados
-    console.log('Productos cargados desde LocalStorage:', productos);
-  }
 
+  public async getAllProductos() {
+    this.isLoading = true;
+    let response = await this.productoController.getAllProducto();
+    console.log(response);
+    
+    this.Producto = response;
+    this.dataSource = new MatTableDataSource(this.Producto);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.isLoading = false;
+    
+  }
+  
   // Filtrar la tabla en base a la búsqueda
   public doFilter = (event: Event) => {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -61,5 +67,9 @@ export class ListProductoComponent implements OnInit, AfterViewInit {
   // Consultar grupo (editar producto)
   public consultarGrupo(nombre: string): void {
     this.router.navigate([`/productos/edit-producto/${nombre}`]);
+  }
+
+  public isActive(url: string): boolean {
+    return this.router.url === url;
   }
 }

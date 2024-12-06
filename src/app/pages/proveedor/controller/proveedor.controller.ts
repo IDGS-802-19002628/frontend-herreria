@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProveedorService } from '../services/proveedor.service';
 import { Proveedor } from '../interfaces/proveedor';
+import { InventarioMateriales } from '../interfaces/material';
+import { MaterialDTO } from '../interfaces/materiales';
 
 @Injectable({
   providedIn: 'root',
@@ -31,10 +33,62 @@ export class ProveedorController {
     });
   }
 
+  public getAllMaterialesInv(): Promise<InventarioMateriales[]> {
+    return new Promise((resolve, reject) => {
+      this.proveedorService.getAllMaterialesInv().subscribe({
+
+        next: (data) => {
+          this.openSnackBar('Proveedores obtenidos correctamente', '😎👌');
+          resolve(data);
+        },
+        error: (error) => {
+          this.openSnackBar('Error al obtener los proveedores', '🤯😈');
+          console.log(error);
+          
+          reject(error);
+        },
+      });
+    });
+  }
+
+  public getAllMaterialeInv(): Promise<MaterialDTO[]> {
+    return new Promise((resolve, reject) => {
+      this.proveedorService.getAllmaterialINV().subscribe({
+
+        next: (data) => {
+          this.openSnackBar('Proveedores obtenidos correctamente', '😎👌');
+          resolve(data);
+        },
+        error: (error) => {
+          this.openSnackBar('Error al obtener los proveedores', '🤯😈');
+          console.log(error);
+          
+          reject(error);
+        },
+      });
+    });
+  }
+
+
   public insertProveedor(data: Proveedor): Promise<Proveedor> {
     return new Promise((resolve, reject) => {
       this.proveedorService.insertProveedor(data).subscribe({
         next: (response: Proveedor) => {
+          this.openSnackBar('Proveedor creado correctamente', '😎👌');
+          resolve(response);
+        },
+        error: (error) => {
+          this.openSnackBar('Error al crear el proveedor', '🤯😈');
+          reject(error);
+        },
+      });
+    });
+  }
+
+  public insertMateriales(data: InventarioMateriales): Promise<InventarioMateriales> {
+    return new Promise((resolve, reject) => {
+      this.proveedorService.insertMaterialINV(data).subscribe({
+        next: (response: InventarioMateriales) => {
           this.openSnackBar('Proveedor creado correctamente', '😎👌');
           resolve(response);
         },

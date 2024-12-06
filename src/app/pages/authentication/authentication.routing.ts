@@ -4,6 +4,7 @@ import { AppSideLoginComponent } from './login/login.component';
 import { AppSideRegisterComponent } from './register/register.component';
 import {ErrorPermisosComponent} from './error-permisos/error-permisos.component';
 import { LandingComponent } from './landing/landing.component';
+import { LandingContactosComponent } from './landing/landing-contactos/landing-contactos.component';
 
 
 export const AuthenticationRoutes: Routes = [
@@ -13,6 +14,10 @@ export const AuthenticationRoutes: Routes = [
       {
         path: 'lading',
         component: LandingComponent
+      },
+      {
+        path: 'contactos',
+        component: LandingContactosComponent
       },
       
       {

@@ -1,7 +1,8 @@
-import { Login } from '../../../interfaces/login';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginResponse } from 'src/app/interfaces/login';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,59 +11,50 @@ import { Router } from '@angular/router';
 export class AppSideLoginComponent {
   loginForm: FormGroup;
 
-  // Definir usuarios con roles predefinidos
-  private users = [
-    {
-      email: 'usuario@ejemplo.com',
-      password: 'usuario123',
-      role: 'usuario',
-    },
-    {
-      email: 'admin@ejemplo.com',
-      password: 'admin123',
-      role: 'admin',
-    },
-  ];
-
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private loginService: AuthService
   ) {
-    // Inicializar el formulario de login
     this.loginForm = this.fb.group({
-      Email: ['', Validators.required],
+      Correo: ['', [Validators.required, Validators.email]],
       Contrasenia: ['', Validators.required],
     });
   }
 
   public login() {
-    console.log('Login iniciado');
-    if (this.loginForm.invalid) {
-      console.log('Formulario inválido');
-      return; // Evita continuar si el formulario es inválido
+    if (this.loginForm.valid) {
+      const loginData = this.loginForm.value;
+
+      this.loginService.singIn(loginData).subscribe({
+        next: (response: LoginResponse) => {
+          console.log('Inicio de sesión exitoso', response);
+
+          // Guarda los datos del usuario en LocalStorage
+          localStorage.setItem('usuario', JSON.stringify(response));
+          
+          
+
+          // Redirigir según el rol
+          const rol = response.rol;
+          if (rol === 'administrador') {
+            this.router.navigate(['/dashboard']);
+          } else if (rol === 'cliente') {
+            this.router.navigate(['/authentication/lading']);
+          } else {
+            console.error('Rol no válido');
+            alert('Rol desconocido');
+          }
+        },
+        error: (err) => {
+          console.error('Error en el inicio de sesión', err);
+          alert('Usuario o contraseña incorrectos');
+        },
+      });
     }
+  }
 
-    const loginData: Login = {
-      Email: this.loginForm.value.Email,
-      Contrasenia: this.loginForm.value.Contrasenia,
-    };
-
-    // Buscar el usuario en la lista predefinida
-    const user = this.users.find(
-      (u) => u.email === loginData.Email && u.password === loginData.Contrasenia
-    );
-
-    if (user) {
-      console.log('Usuario autenticado:', user); 
-
-      // Redirigir según el rol del usuario
-      if (user.role === 'admin') {
-        this.router.navigate(['/dashboard']); // Admin va al dashboard
-      } else if (user.role === 'usuario') {
-        this.router.navigate(['/authentication/landing']); // Usuario va a landing
-      }
-    } else {
-      console.error('Error: Usuario o contraseña incorrectos');
-    }
+  navigateToLogin() {
+    this.router.navigate(['/authentication/login']);
   }
 }

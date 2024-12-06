@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Producto } from '../../interfaces/producto';
+import { Fabricacion } from '../../interfaces/producto';
 import { ProductoController } from '../../controller/producto.controller';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -15,9 +15,9 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./producto-servicio.component.scss']
 })
 export class ProductoServicioComponent implements OnInit {
-  public dataSource = new MatTableDataSource<Producto>([]);
-  public Producto: Producto[] = [];
-  public carrito: Producto[] = []; // Array para almacenar los productos en el carrito
+  public dataSource = new MatTableDataSource<Fabricacion>([]);
+  public Producto: Fabricacion[] = [];
+  public carrito: Fabricacion[] = []; // Array para almacenar los productos en el carrito
   public isLoading: boolean = false;
   public mostrarCarrito: boolean = false;
 
@@ -76,9 +76,9 @@ export class ProductoServicioComponent implements OnInit {
   }
 
   // Función para agregar productos al carrito
-  public agregarAlCarrito(producto: Producto) {
+  public agregarAlCarrito(producto: Fabricacion) {
     this.carrito.push(producto);  // Añadir el producto al carrito
-    this.snackBar.open(`${producto.nombre} agregado al carrito`, 'Cerrar', { duration: 2000 });
+   
     this.cdr.detectChanges(); // Forzar la actualización de la vista
   }
 
@@ -90,7 +90,7 @@ export class ProductoServicioComponent implements OnInit {
   // Función para remover un producto del carrito
   public removerDelCarrito(index: number) {
     const productoRemovido = this.carrito.splice(index, 1)[0];
-    this.snackBar.open(`${productoRemovido.nombre} removido del carrito`, 'Cerrar', { duration: 2000 });
+    
     this.cdr.detectChanges(); // Forzar la actualización de la vista
   }
 }

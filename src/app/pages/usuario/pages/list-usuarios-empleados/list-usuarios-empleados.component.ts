@@ -27,8 +27,8 @@ export class ListUsuariosEmpleadosComponent {
 
 
   public displayedColumns: String[] = ['Nombre', 'Rol', 'Direccion','Estatus'];
-  public dataSource = new MatTableDataSource<Empleado>(ELEMENT_DATA);
-  public Proveedores: usuarioE[] = [];
+  public dataSource = new MatTableDataSource<usuarioE>([]);
+  public UsuariosE: usuarioE[] = [];
   public isLoading: boolean = false;
 
   constructor(
@@ -50,8 +50,21 @@ export class ListUsuariosEmpleadosComponent {
 
   ngOnInit(): void {
 
-    //this.getAllProveedor();
+    this.getAllUsauriosE();
 
+  }
+
+  public async getAllUsauriosE() {
+    this.isLoading = true;
+    let response = await this.usuarioController.getAllUsuariosE();
+    console.log(response);
+    
+    this.UsuariosE = response;
+    this.dataSource = new MatTableDataSource(this.UsuariosE);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.isLoading = false;
+    
   }
 
   public consultarGrupo(nombre: string) {
@@ -69,22 +82,5 @@ export class ListUsuariosEmpleadosComponent {
 
   
 }
-export interface Empleado {
-  nombre: string;
-  nombrep: string;
-  direccion: string;
-  status: number;
-}
 
-const ELEMENT_DATA: Empleado[] = [
-  {nombre: 'Juan Pérez', nombrep: 'Administrador', direccion: 'Calle 1', status: 1},
-  {nombre: 'María López', nombrep: 'Vendedor', direccion: 'Calle 2', status: 1},
-  {nombre: 'Carlos Ruiz', nombrep: 'Soporte Técnico', direccion: 'Calle 3', status: 2},
-  {nombre: 'Ana Gómez', nombrep: 'Desarrollador', direccion: 'Calle 4', status: 1},
-  {nombre: 'Luis Herrera', nombrep: 'Gerente', direccion: 'Calle 5', status: 1},
-  {nombre: 'Sofía Martínez', nombrep: 'Contadora', direccion: 'Calle 6', status: 2},
-  {nombre: 'Pedro Sánchez', nombrep: 'Asistente', direccion: 'Calle 7', status: 1},
-  {nombre: 'Laura Ramírez', nombrep: 'Recepcionista', direccion: 'Calle 8', status: 2},
-  {nombre: 'Roberto Díaz', nombrep: 'Supervisor', direccion: 'Calle 9', status: 1},
-  {nombre: 'Andrea Ortiz', nombrep: 'Ingeniero', direccion: 'Calle 10', status: 1},
-];
+

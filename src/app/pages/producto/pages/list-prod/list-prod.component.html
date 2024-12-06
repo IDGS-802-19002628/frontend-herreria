@@ -1,0 +1,80 @@
+<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+<mat-card class="cardWithShadow">
+  <mat-card class="nav_usuarios">
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+        
+        <a mat-tab-link routerLink="/productos" [active]="isActive('/productos/list-productos')">Productos</a>
+        <a mat-tab-link routerLink="/productos/list-receta"  [active]="isActive('/productos/list-proceso')">Proceso Fabricación</a>
+        <a mat-tab-link routerLink="/productos/list-prod"  [active]="isActive('/productos/list-prod')">Producción</a>
+
+    </nav>
+    <mat-tab-nav-panel #tabPanel>
+        <div class="p-3">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-tab-nav-panel>
+</mat-card>
+  <mat-card-content class="p-24">
+    <mat-card-title>Producciones</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">Listado de Producciones</mat-card-subtitle>
+    <div class="d-flex justify-content-end">
+      <button mat-raised-button color="primary" routerLink="/productos/insert-produccion">
+        <mat-icon><i-tabler name="plus"></i-tabler></mat-icon> Agregar Producción
+      </button>
+    </div>
+  </mat-card-content>
+
+  <mat-card-content>
+    <mat-accordion class="w-100 m-t-12 p-24">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="d-flex w-100">
+              <div class="flex-1-auto">Buscar producción</div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4">
+          <form [formGroup]="formSearch">
+            <mat-form-field class="col-md-12">
+              <mat-label>Buscar</mat-label>
+              <input matInput placeholder="Buscar en tabla" (keyup)="doFilter($event)">
+              <mat-icon matSuffix><i-tabler name="search"></i-tabler></mat-icon>
+            </mat-form-field>
+          </form>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="responsive-table">
+      <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="Nombre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Producción producto</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="f-s-14">{{ element.descripcion }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Categoria">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Producción producto</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="f-s-14">{{ element.cantidad }}</mat-cell>
+          </ng-container>
+        
+
+          <ng-container matColumnDef="Acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-button color="primary" (click)="mostrarAlerta()">
+                Mostrar Alerta
+              </button>
+            </mat-cell>
+          </ng-container>
+          
+        
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,79 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <mat-card-title>Registrar Producto en Inventario</mat-card-title>
+    </mat-card-content>
+  
+    <mat-card-content class="p-24">
+      <form [formGroup]="insertMaterialForm" (ngSubmit)="onSubmit()">
+        <!-- Fila para Cantidad y Fecha de Creación -->
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-6 mb-3">
+            <mat-form-field class="w-100">
+              <mat-label>Cantidad</mat-label>
+              <input matInput type="number" formControlName="cantidad" placeholder="Cantidad" />
+              <mat-error *ngIf="insertMaterialForm.get('cantidad')?.hasError('required')">
+                La cantidad es obligatoria.
+              </mat-error>
+              <mat-error *ngIf="insertMaterialForm.get('cantidad')?.hasError('min')">
+                La cantidad debe ser mayor que 0.
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-12 col-md-6 col-lg-6 mb-3">
+            <mat-form-field class="w-100">
+              <mat-label>Fecha de Creación</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fechaCreacion" placeholder="Seleccionar fecha" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="insertMaterialForm.get('fechaCreacion')?.hasError('required')">
+                La fecha de creación es obligatoria.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Fila para Producto y Material -->
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-6 mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Producto</mat-label>
+              <mat-select formControlName="idFabricacion">
+                <mat-option *ngFor="let producto of Producto" [value]="producto.id">
+                  {{ producto.nombreEmpresa }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="insertMaterialForm.get('idFabricacion')?.hasError('required')">
+                El producto es obligatorio.
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-12 col-md-6 col-lg-6 mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Material</mat-label>
+              <mat-select formControlName="idMaterial">
+                <mat-option *ngFor="let material of Material" [value]="material.id">
+                  {{ material.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="insertMaterialForm.get('idMaterial')?.hasError('required')">
+                El material es obligatorio.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <!-- Botones -->
+        <div class="d-flex justify-content-end mt-4">
+          <button mat-raised-button color="primary" type="submit" >
+            Guardar
+          </button>
+          <button mat-raised-button color="accent" class="ml-3" type="button">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

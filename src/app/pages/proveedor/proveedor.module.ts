@@ -16,6 +16,8 @@ import { SharedComponentModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 
 import { ProveedorComponentsRoutes } from './proveedor.routes';
+import { ListMaterialComponent } from './list-material/list-material.component';
+import { InsertMaterialComponent } from './insert-material/insert-material.component';
 
 
 
@@ -23,7 +25,9 @@ import { ProveedorComponentsRoutes } from './proveedor.routes';
   declarations: [
     ListProveedorComponent,
     InsertProveedorComponent,
-    EditProveedorComponent
+    EditProveedorComponent,
+    ListMaterialComponent,
+    InsertMaterialComponent
   ],
   imports: [
     CommonModule,

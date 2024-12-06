@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductoController } from '../../controller/producto.controller';
-import { Producto } from '../../interfaces/producto';
+import { Fabricacion } from '../../interfaces/producto';
 
 import { CategoriaController } from '../../../categoria/controller/categoria.controller';
 import { Categoria } from 'src/app/pages/categoria/interfaces/categoria';
@@ -44,14 +44,9 @@ export class EditProductoComponent implements OnInit {
   }
 
   private cargarProducto(): void {
-    this.productoController.getProductoById(this.productoId).then((producto: Producto) => {
+    this.productoController.getProductoById(this.productoId).then((producto: Fabricacion) => {
       this.productoForm.patchValue({
-        nombre: producto.nombre,
-        descripcion: producto.descripcion,
-        precio: producto.precio,
-        rutaImagen: producto.rutaImagen,
-        stock: producto.stock,
-        idCategoria: producto.idCategoria
+        
       });
     }).catch(error => {
       this.snackBar.open('Error al cargar el producto', 'Cerrar', {
@@ -74,7 +69,7 @@ export class EditProductoComponent implements OnInit {
     console.log('ID del producto para actualización:', this.productoId);
     
     if (this.productoForm.valid) {
-      const productoActualizado: Producto = this.productoForm.value;
+      const productoActualizado: Fabricacion = this.productoForm.value;
       this.productoController.updateProducto(this.productoId, productoActualizado).then(() => {
         this.snackBar.open('Error al actualizar el producto ', 'Cerrar', {
           duration: 3000,

@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./list-material.component.scss']
 })
 export class ListMaterialComponent {
+  
 
 }

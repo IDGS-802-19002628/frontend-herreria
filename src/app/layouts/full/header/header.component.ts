@@ -45,14 +45,17 @@ export class HeaderComponent  implements OnInit {
   }
 
   public logout() {
-    sessionStorage.removeItem('token');
+    // Eliminar token y usuario del almacenamiento
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario'); // Cambia 'user' al nombre clave que uses en localStorage
   
-    // Redirige al usuario a la página de inicio de sesión
+    // Redirigir al usuario a la página de inicio de sesión
     this.router.navigate(['/authentication/login']).then(() => {
-      // Luego recarga la página después de la navegación
+      // Recargar la página después de la redirección
       window.location.reload();
     });
   }
+  
   
 
   public async ngOnInit() {

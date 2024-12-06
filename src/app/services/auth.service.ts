@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Login } from '../interfaces/login';
+import { Login, LoginResponse } from '../interfaces/login';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -10,14 +10,15 @@ import { PermisosResponse } from '../interfaces/permisos';
   providedIn: 'root',
 })
 export class AuthService {
-  private URL = environment.ENDPOINT_DESKART;
+
   private ENDPOIN_VALIDATE = environment.ENDPOINT_VALIDATES;
+  private URL_LOGIN = `${environment.ENDPOINT_SOLDALINE}api/Usuario/Login`;
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
  
 
-  public singIn(data: Login): Observable<Login> {
-    return this.http.post<Login>(`${this.URL}api/Login`, data)
+  public singIn(data: LoginResponse): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.URL_LOGIN}`, data)
       .pipe(
         catchError(err => throwError(() => err))
       );

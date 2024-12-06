@@ -18,9 +18,9 @@ export class ListUsuariosClientesComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['Nombre', 'Rol', 'Direccion', 'ComprasRealizadas', 'Tarjeta', 'Estatus'];
-  public dataSource = new MatTableDataSource<Cliente>(ELEMENT_DATA);
-  public Proveedores: usuarioC[] = [];
+  displayedColumns: string[] = ['Nombre', 'Rol', 'Direccion','Estatus'];
+  public dataSource = new MatTableDataSource<usuarioC>([]);
+  public UsuariosC: usuarioC[] = [];
   public isLoading: boolean = false;
 
   constructor(
@@ -42,8 +42,21 @@ export class ListUsuariosClientesComponent {
 
   ngOnInit(): void {
 
-    //this.getAllProveedor();
+    this.getAllUsauriosC();
 
+  }
+
+  public async getAllUsauriosC() {
+    this.isLoading = true;
+    let response = await this.usuarioController.getAllUsuariosC();
+    console.log(response);
+    
+    this.UsuariosC = response;
+    this.dataSource = new MatTableDataSource(this.UsuariosC);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.isLoading = false;
+    
   }
 
   public consultarGrupo(nombre: string) {
@@ -62,20 +75,3 @@ export class ListUsuariosClientesComponent {
   
 }
 
-export interface Cliente {
-  nombre: string;
-  nombrep: string;
-  direccion: string;
-  comprasRealizadas: number;
-  tarjeta: string;
-  status: number;
-}
-
-const ELEMENT_DATA: Cliente[] = [
-  { nombre: 'Juan Pérez', nombrep: 'Cliente', direccion: 'Av. Principal 123', comprasRealizadas: 10, tarjeta: '1234-5678-9123-4567', status: 1 },
-  { nombre: 'María García', nombrep: 'Cliente', direccion: 'Calle Secundaria 45', comprasRealizadas: 5, tarjeta: '4321-8765-3219-6543', status: 2 },
-  { nombre: 'Carlos López', nombrep: 'Cliente', direccion: 'Calle Tercera 12', comprasRealizadas: 7, tarjeta: '1111-2222-3333-4444', status: 1 },
-  { nombre: 'Ana Martínez', nombrep: 'Cliente', direccion: 'Av. Nueva 78', comprasRealizadas: 3, tarjeta: '5555-6666-7777-8888', status: 2 },
-  { nombre: 'Luis Fernández', nombrep: 'Cliente', direccion: 'Plaza Central 56', comprasRealizadas: 20, tarjeta: '9999-0000-1234-5678', status: 1 },
-  // Añade más datos si es necesario
-];

@@ -64,7 +64,7 @@
               <ng-container matColumnDef="Rol">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Rol</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="f-s-14">
-                  {{ element.nombrep }}
+                  {{ element.rol }}
                 </mat-cell>
               </ng-container>
           
@@ -78,10 +78,10 @@
               <ng-container matColumnDef="Estatus">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <span *ngIf="element.status === 1" class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14">
+                  <span *ngIf="element.estatus === 1" class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14">
                     Activo
                   </span>
-                  <span *ngIf="element.status === 2" class="bg-light-danger text-danger rounded f-w-600 p-y-6 p-x-16 f-s-14">
+                  <span *ngIf="element.estatus === 2" class="bg-light-danger text-danger rounded f-w-600 p-y-6 p-x-16 f-s-14">
                     Inactivo
                   </span>
                 </mat-cell>

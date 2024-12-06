@@ -1,54 +1,70 @@
-<mat-card class="edit-categoria-card">
-  <mat-card-header>
-    <mat-card-title>Registrar Producto</mat-card-title>
-  </mat-card-header>
-  <br>
-  <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="registrarProducto()">
-      <div class="form-container">
-        
-        <!-- Nombre del Producto -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombre" placeholder="Nombre" required>
-        </mat-form-field>
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+      <mat-card-title>Registrar Producto</mat-card-title>
+  </mat-card-content>
 
-        <!-- Subir Imagen -->
-        <div class="full-width">
-          <label>Subir Imagen</label>
-          <input type="file" accept="image/*" (change)="onImageSelected($event)">
-          <mat-error *ngIf="form.get('imagen')?.hasError('required')">Imagen es obligatoria</mat-error>
-        </div>
+  <mat-card-content class="p-24">
+      <form class="row" [formGroup]="insertProducto" (ngSubmit)="onSubmit()">
 
-        <!-- Id de Producción -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Id de Producción</mat-label>
-          <input matInput formControlName="produccion_id" placeholder="ID de Producción" required>
-        </mat-form-field>
+          <mat-form-field class="col-12 col-md-6 col-lg-6 m-r-3 m-t-12">
+              <mat-label>Nombre Producto</mat-label>
+              <input matInput placeholder="Nombre Completo" formControlName="nombre">
+          </mat-form-field>
 
-        <!-- Cantidad -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Cantidad</mat-label>
-          <input matInput formControlName="cantidad" type="number" placeholder="Cantidad" required>
-        </mat-form-field>
+          <mat-form-field class="col-12 col-md-6 col-lg-6 m-r-3 m-t-12">
+            <mat-label>Categoría de Protección</mat-label>
+            <mat-select formControlName="categoriaProteccion">
+              <mat-option *ngFor="let categoria of categoriasProteccion" [value]="categoria">
+                {{ categoria }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <!-- Precio -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Precio</mat-label>
-          <input matInput formControlName="precio" type="number" placeholder="Precio" required>
-        </mat-form-field>
+          <div class="col-12 col-md-6 col-lg-6 m-r-3 m-t-12">
+            
+          
+            <!-- Vista previa de la imagen -->
+            <div *ngIf="imagePreview" class="image-preview m-b-12">
+              <img [src]="imagePreview" alt="Vista previa" class="img-thumbnail" />
+            </div>
+          
+            <!-- Input de archivo oculto -->
+            <input
+              type="file"
+              id="imagenProducto"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+              #fileInput
+              class="d-none"
+            />
+          
+           
+          </div>
+          
+          
+          
+          
+      </form>
+ <!-- Botón para seleccionar imagen -->
+ <button
+ mat-raised-button
+ color="primary"
+ (click)="fileInput.click()"
+ class="m-t-12"
+>
+ Seleccionar Imagen
+</button>
+     <form action="" (ngSubmit)="onSubmit()">
+      <div class="d-flex justify-content-end m-t-24">
+        <button mat-raised-button color="primary">
+            <mat-icon><i-tabler name="device-floppy"></i-tabler></mat-icon> Guardar
+        </button>
 
-        <!-- Lote -->
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Lote</mat-label>
-          <input matInput formControlName="lote" placeholder="Lote" required>
-        </mat-form-field>
-
-        <div class="form-actions">
-          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Registrar</button>
-          <button mat-raised-button color="accent">Cancelar</button>
-        </div>
-      </div>
-    </form>
+        <button mat-raised-button color="accent" class="m-l-12" routerLink="/usuarios">
+            <mat-icon><i-tabler name="close"></i-tabler></mat-icon> Cancelar
+        </button>
+    </div>
+      
+     </form>
   </mat-card-content>
 </mat-card>

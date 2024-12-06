@@ -1,0 +1,71 @@
+<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+
+<mat-card class="cardWithShadow">
+  <mat-tab-nav-panel #tabPanel>
+    <div class="p-3">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-tab-nav-panel>
+
+  <mat-card-content class="p-24">
+    <mat-card-title>Inventario Materiales</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">Listado de Materiales</mat-card-subtitle>
+
+    <div class="d-flex justify-content-end">
+      <button mat-raised-button color="primary" routerLink="/proveedores/insert-material">
+        <mat-icon><i-tabler name="plus"></i-tabler></mat-icon> Comprar Material
+      </button>
+    </div>
+  </mat-card-content>
+
+  <mat-card-content>
+    <mat-accordion class="w-100 m-t-12 p-24">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="d-flex w-100">
+              <div class="flex-1-auto">Buscar Material</div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4">
+          <form [formGroup]="formSearch">
+            <mat-form-field class="col-md-12">
+              <mat-label>Buscar</mat-label>
+              <input matInput placeholder="Buscar en tabla" (keyup)="doFilter($event)">
+              <mat-icon matSuffix><i-tabler name="search"></i-tabler></mat-icon>
+            </mat-form-field>
+          </form>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="responsive-table">
+      <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- Empresa -->
+        <ng-container matColumnDef="Empresa">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Proveedor</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="f-s-14">{{ element.nombreEmpresaProveedor }}</mat-cell>
+        </ng-container>
+
+        <!-- Material -->
+        <ng-container matColumnDef="Telefono">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>material</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="f-s-14">{{ element.nombreMaterial }}</mat-cell>
+        </ng-container>
+
+        <!-- Cantidad -->
+        <ng-container matColumnDef="Email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>cantidad</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="f-s-14">{{ element.cantidad }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

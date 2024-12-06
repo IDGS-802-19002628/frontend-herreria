@@ -1,0 +1,124 @@
+/* Colores de la paleta */
+:root {
+  --dark-bg: #02010a;
+  --light-bg: #faf9ea;
+  --gold: #9d743f;
+  --silver: #aba596;
+  --gray: #5e5952;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: var(--light-bg);
+  font-family: 'Arial', sans-serif;
+}
+
+nav {
+  background-color: var(--gold);
+  box-shadow: 0px 4px 8px var(--gray);
+
+  a {
+    color: var(--dark-bg);
+  }
+}
+
+header {
+  text-align: center;
+  padding: 2rem 0;
+
+  img {
+    max-width: 150px;
+    animation: bounce 2s infinite;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+h1 {
+  color: var(--gold);
+  font-size: 2.5rem;
+}
+
+section {
+  padding: 2rem 0;
+}
+
+.carousel-item {
+  img {
+    max-height: 300px;
+    width: auto;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.card {
+  background-color: var(--gray);
+  color: var(--light-bg);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.team-card {
+  text-align: center;
+  background: linear-gradient(135deg, var(--gold), var(--gray));
+  color: var(--light-bg);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 8px 16px rgba(255, 255, 255, 0.4);
+  }
+
+  img {
+    max-width: 120px;
+    border: 4px solid var(--silver);
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.btn-contact {
+  background: linear-gradient(to right, var(--gold), var(--silver));
+  color: var(--dark-bg);
+  font-size: 1.5rem;
+  padding: 1rem 2.5rem;
+  border-radius: 20px;
+  transition: all 0.4s ease;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+
+  &:hover {
+    background: linear-gradient(to right, var(--silver), var(--gold));
+    transform: scale(1.1);
+    box-shadow: 0px 8px 16px rgba(255, 255, 255, 0.5);
+  }
+}
+
+footer {
+  background-color: var(--dark-bg);
+  padding: 1rem 0;
+  text-align: center;
+  color: var(--light-bg);
+  margin-top: 2rem;
+}

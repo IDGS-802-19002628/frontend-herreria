@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Proveedor } from '../../interfaces/proveedor';
+import { ProveedorService } from '../../services/proveedor.service';
 
 @Component({
   selector: 'app-insert-proveedor',
@@ -16,34 +17,42 @@ export class InsertProveedorComponent {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private proveedorService: ProveedorService,
     private snackBar: MatSnackBar
   ) {
     this.insertProveedorForm = this.fb.group({
-      nombre: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      email: ['', [Validators.required, Validators.email]],
-      direccion: [''],
-      status: [1]
+      nombre: ['', Validators.required],                // Nombre del proveedor
+      apellidoP: ['', Validators.required],             // Apellido paterno
+      apellidoM: ['', Validators.required],             // Apellido materno
+      nombreEmpresa: ['', Validators.required],         // Nombre de la empresa
+      nombreContacto: ['', Validators.required],        // Nombre del contacto
+      
+      telefonoContacto: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], // Teléfono del contacto
+      email: ['', [Validators.required, Validators.email]], // Correo electrónico
+      direccion: [''],                                  // Dirección
+      status: [1]                                       // Estado
     });
   }
 
   onSubmit() {
     if (this.insertProveedorForm.valid) {
-      const nuevoProveedor: Proveedor = this.insertProveedorForm.value;
+      const formValues = this.insertProveedorForm.value;
 
-      // Obtener proveedores guardados en localStorage
-      const proveedoresGuardados = JSON.parse(localStorage.getItem('proveedores') || '[]');
-
-      // Agregar el nuevo proveedor a la lista
-      proveedoresGuardados.push(nuevoProveedor);
-
-      // Guardar la lista actualizada en localStorage
-      localStorage.setItem('proveedores', JSON.stringify(proveedoresGuardados));
-
-      this.openSnackBar('Proveedor registrado exitosamente', 'Cerrar');
-      this.router.navigate(['/proveedores']);
+      // Llamar al servicio para crear el nuevo proveedor
+      this.proveedorService.insertProveedor(formValues).subscribe({
+        next: (response) => {
+          
+          this.openSnackBar('Hubo un error al crear el proveedor.', 'Cerrar');
+          console.error('Error al crear proveedor:');
+        },
+        error: (error) => {
+          this.openSnackBar('Proveedor creado exitosamente.', 'Cerrar');
+          this.router.navigate(['/proveedores']); // Redirigir a la lista de proveedores
+          
+        }
+      });
     } else {
-      this.openSnackBar('Por favor completa todos los campos requeridos', 'Cerrar');
+      this.openSnackBar('Por favor completa todos los campos requeridos.', 'Cerrar');
     }
   }
 

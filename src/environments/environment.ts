@@ -19,7 +19,6 @@ export const environment = {
   ENDPOINT_CITA: 'http://localhost:3000/ficha/',
   ENDPOINT_MULTIPAGOS: 'https://sige.unimundial.edu.mx/multipagos/controller/controller.php',
   ENDPOINT_BIBLIOTECAS : 'http://localhost:3000/',
-  ENDPOINT_DESKART : 'http://localhost:5055/'
-
+  ENDPOINT_SOLDALINE : 'http://localhost:5055/'
 };
  

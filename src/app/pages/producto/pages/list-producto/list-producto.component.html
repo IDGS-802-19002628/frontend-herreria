@@ -1,11 +1,25 @@
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <mat-card class="cardWithShadow">
+  <mat-card class="nav_usuarios">
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+        
+        <a mat-tab-link routerLink="/productos" [active]="isActive('/productos/list-productos')">Productos</a>
+        <a mat-tab-link routerLink="/productos/list-receta"  [active]="isActive('/productos/list-proceso')">Proceso Fabricación</a>
+        <a mat-tab-link routerLink="/productos/list-prod"  [active]="isActive('/productos/list-prod')">Producción</a>
+
+    </nav>
+    <mat-tab-nav-panel #tabPanel>
+        <div class="p-3">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-tab-nav-panel>
+</mat-card>
   <mat-card-content class="p-24">
-    <mat-card-title>Producciones</mat-card-title>
-    <mat-card-subtitle class="mat-body-1">Listado de producciones</mat-card-subtitle>
+    <mat-card-title>Productos</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">Listado de productos</mat-card-subtitle>
     <div class="d-flex justify-content-end">
       <button mat-raised-button color="primary" routerLink="/productos/insert-producto">
-        <mat-icon><i-tabler name="plus"></i-tabler></mat-icon> Agregar Producción
+        <mat-icon><i-tabler name="plus"></i-tabler></mat-icon> Agregar Productos
       </button>
     </div>
   </mat-card-content>
@@ -16,7 +30,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
             <div class="d-flex w-100">
-              <div class="flex-1-auto">Buscar Producción</div>
+              <div class="flex-1-auto">Buscar Productos</div>
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -36,23 +50,19 @@
       <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <ng-container matColumnDef="Nombre">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="f-s-14">{{ element.nombre }}</mat-cell>
+          <mat-cell *matCellDef="let element" class="f-s-14">{{ element.nombreProducto }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="Precio">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Precio</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="f-s-14">${{ element.precio }}</mat-cell>
+        <ng-container matColumnDef="Categoria">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Categoria</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="f-s-14">
+            <img [src]="element.imagenProducto" alt="Imagen del producto" class="imagen-producto" />
+          </mat-cell>
+          
+
+          
         </ng-container>
 
-        <ng-container matColumnDef="Stock">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Stock</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="f-s-14">{{ element.cantidad }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="Descripcion">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>precio</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="f-s-14">{{ element.precio }}</mat-cell>
-        </ng-container>
 
         <ng-container matColumnDef="Estatus">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</mat-header-cell>

@@ -18,6 +18,11 @@ import { EditProductoComponent } from './pages/edit-producto/edit-producto.compo
 import { ProductoServicioComponent } from './pages/producto-servicio/producto-servicio.component';
 import { ProductoCatalogoComponent } from './pages/producto-catalogo/producto-catalogo.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
+import { ListRecetaComponent } from './list-receta/list-receta.component';
+import { InsertRecetaComponent } from './insert-receta/insert-receta.component';
+import { EditRecetaComponent } from './edit-receta/edit-receta.component';
+import { InsertProdComponent } from './pages/insert-prod/insert-prod.component';
+import { ListProdComponent } from './pages/list-prod/list-prod.component';
 
 
 
@@ -28,7 +33,12 @@ import { CarritoComponent } from './pages/carrito/carrito.component';
     EditProductoComponent,
     ProductoServicioComponent,
     ProductoCatalogoComponent,
-    CarritoComponent
+    CarritoComponent,
+    ListRecetaComponent,
+    InsertRecetaComponent,
+    EditRecetaComponent,
+    InsertProdComponent,
+    ListProdComponent
 
   ],
   imports: [

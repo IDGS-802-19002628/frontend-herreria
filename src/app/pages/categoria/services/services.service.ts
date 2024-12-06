@@ -9,7 +9,7 @@ import { Categoria } from '../interfaces/categoria';
 })
 export class CategoriaService {
 
-  private baseURL = `${environment.ENDPOINT_DESKART}api/categorias`;
+  private baseURL = `${environment.ENDPOINT_SOLDALINE}api/categorias`;
 
   constructor(private http: HttpClient) { }
 

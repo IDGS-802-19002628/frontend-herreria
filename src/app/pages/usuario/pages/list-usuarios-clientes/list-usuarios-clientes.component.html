@@ -65,7 +65,7 @@
               <ng-container matColumnDef="Rol">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Rol</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="f-s-14">
-                  {{ element.nombrep }}
+                  {{ element.rol }}
                 </mat-cell>
               </ng-container>
           
@@ -77,30 +77,16 @@
                 </mat-cell>
               </ng-container>
           
-              <!-- Compras Realizadas -->
-              <ng-container matColumnDef="ComprasRealizadas">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Compras Realizadas</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="f-s-14">
-                  {{ element.comprasRealizadas }}
-                </mat-cell>
-              </ng-container>
-          
-              <!-- Tarjeta -->
-              <ng-container matColumnDef="Tarjeta">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Tarjeta</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="f-s-14">
-                  {{ element.tarjeta }}
-                </mat-cell>
-              </ng-container>
+      
           
               <!-- Estatus -->
               <ng-container matColumnDef="Estatus">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <span *ngIf="element.status === 1" class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14">
+                  <span *ngIf="element.estatus === 1" class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14">
                     Activo
                   </span>
-                  <span *ngIf="element.status === 2" class="bg-light-danger text-danger rounded f-w-600 p-y-6 p-x-16 f-s-14">
+                  <span *ngIf="element.estatus === 2" class="bg-light-danger text-danger rounded f-w-600 p-y-6 p-x-16 f-s-14">
                     Inactivo
                   </span>
                 </mat-cell>

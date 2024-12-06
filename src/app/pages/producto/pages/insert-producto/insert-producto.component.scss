@@ -48,3 +48,18 @@
     border-color: #007bff;
   }
   
+  .image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  

@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ProveedorController } from '../../controller/proveedor.controller';
 
 @Component({
   selector: 'app-list-proveedor',
@@ -18,11 +19,13 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['Empresa', 'Telefono', 'Email', 'Direccion', 'Estatus'];
   public dataSource = new MatTableDataSource<Proveedor>([]);
+  public Proveedor: Proveedor[] = [];
   public isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private snackBack: MatSnackBar,
+    private proveedorController: ProveedorController,
     private router: Router
   ){}
 
@@ -31,7 +34,7 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
   });
 
   ngOnInit(): void {
-    this.loadProveedoresFromLocalStorage();
+    this.getAllProveedores()
   }
 
   ngAfterViewInit(): void {
@@ -39,9 +42,17 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  private loadProveedoresFromLocalStorage(): void {
-    const proveedoresData = localStorage.getItem('proveedores');
-    this.dataSource.data = proveedoresData ? JSON.parse(proveedoresData) : [];
+  public async getAllProveedores() {
+    this.isLoading = true;
+    let response = await this.proveedorController.getAllProveedores();
+    console.log(response);
+    
+    this.Proveedor = response;
+    this.dataSource = new MatTableDataSource(this.Proveedor);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.isLoading = false;
+    
   }
 
   public doFilter = (event: Event) => {
@@ -52,4 +63,9 @@ export class ListProveedorComponent implements OnInit, AfterViewInit {
   public consultarGrupo(nombre: string) {
     this.router.navigate([`/proveedores/edit-proveedores/${nombre}`]);
   }
+
+  public isActive(url: string): boolean {
+    return this.router.url === url;
+  }
+  
 }

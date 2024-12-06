@@ -3,6 +3,12 @@ import { ListProductoComponent } from './pages/list-producto/list-producto.compo
 import { InsertProductoComponent } from './pages/insert-producto/insert-producto.component';
 import { EditProductoComponent } from './pages/edit-producto/edit-producto.component';
 import { ProductoServicioComponent } from './pages/producto-servicio/producto-servicio.component';
+import { ListRecetaComponent } from './list-receta/list-receta.component';
+import { InsertRecetaComponent } from './insert-receta/insert-receta.component';
+import { EditRecetaComponent } from './edit-receta/edit-receta.component';
+import { ListProdComponent } from './pages/list-prod/list-prod.component';
+import { InsertProveedorComponent } from '../proveedor/pages/insert-proveedor/insert-proveedor.component';
+import { InsertProdComponent } from './pages/insert-prod/insert-prod.component';
 
 
 
@@ -32,9 +38,29 @@ export const ProductoComponentsRoutes: Routes = [
         data: { title: 'servicio Producto' }
       },
       {
-        path: 'catalogo-producto',
-        component: EditProductoComponent,
-        data: { title: 'catalogo Producto' }
+        path: 'list-receta',
+        component: ListRecetaComponent,
+        data: { title: 'Receta Producto' }
+      },
+      {
+        path: 'insert-receta',
+        component: InsertRecetaComponent,
+        data: { title: 'Registro Producto' }
+      },
+      {
+        path: 'edit-receta',
+        component: EditRecetaComponent,
+        data: { title: 'Editar Receta' }
+      },
+      {
+        path: 'list-prod',
+        component: ListProdComponent,
+        data: { title: 'Editar Receta' }
+      },
+      {
+        path: 'insert-produccion',
+        component: InsertProdComponent,
+        data: { title: 'Registro Producto' }
       },
 
     ],

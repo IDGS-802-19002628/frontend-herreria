@@ -1,5 +1,18 @@
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <mat-card class="cardWithShadow">
+  <mat-card class="nav_usuarios">
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+        
+        <a mat-tab-link routerLink="/proveedores/list-proveedores" [active]="isActive('/usuarios/list-proveedores')">Proveedores</a>
+        <a mat-tab-link routerLink="/proveedores/list-material"  [active]="isActive('/usuarios/list-material')">Compra de Material</a>
+
+    </nav>
+    <mat-tab-nav-panel #tabPanel>
+        <div class="p-3">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-tab-nav-panel>
+</mat-card>
     <mat-card-content class="p-24">
         <mat-card-title>Proveedores</mat-card-title>
         <mat-card-subtitle class="mat-body-1">Listado de proveedores</mat-card-subtitle>
@@ -44,7 +57,7 @@
               <ng-container matColumnDef="Empresa">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Empresa</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="f-s-14">
-                  {{ element.nombre }}
+                  {{ element.nombreEmpresa }}
                 </mat-cell>
               </ng-container>
           
@@ -52,15 +65,15 @@
               <ng-container matColumnDef="Telefono">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="f-s-14">
-                  {{ element.telefono }}
+                  {{ element.telefonoContacto }}
                 </mat-cell>
               </ng-container>
           
               <!-- Email -->
               <ng-container matColumnDef="Email">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="f-s-14">
-                  {{ element.email }}
+                  {{ element.nombreContacto }} {{ element.apellidoP }} {{ element.apellidoM }}
                 </mat-cell>
               </ng-container>
           
@@ -68,7 +81,7 @@
               <ng-container matColumnDef="Direccion">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="f-s-14">
-                  {{ element.direccion }}
+                  {{ element.direccion }} 
                 </mat-cell>
               </ng-container>
           
@@ -76,10 +89,10 @@
               <ng-container matColumnDef="Estatus">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <span *ngIf="element.status === 1" class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14">
+                  <span *ngIf="element.estatus === 1" class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14">
                     Activo
                   </span>
-                  <span *ngIf="element.status === 2" class="bg-light-danger text-danger rounded f-w-600 p-y-6 p-x-16 f-s-14">
+                  <span *ngIf="element.estatus === 2" class="bg-light-danger text-danger rounded f-w-600 p-y-6 p-x-16 f-s-14">
                     Inactivo
                   </span>
                 </mat-cell>
