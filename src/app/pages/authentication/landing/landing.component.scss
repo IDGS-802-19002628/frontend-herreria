@@ -7,6 +7,13 @@ body {
   letter-spacing: 1px;
 }
 
+.navbar-nav {
+  margin-left: auto; /* Alinea los items a la derecha */
+}
+
+.navbar-nav .nav-item.ml-auto {
+  margin-left: auto; /* Se asegura de que el botón de cerrar sesión esté a la derecha */
+}
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
     url('https://i.ytimg.com/vi/trycw1WckuM/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBIxeqK76MzBacnWXhizNbLXZmXqA') no-repeat center center/cover;
@@ -45,4 +52,23 @@ body {
 
 .cart-sidebar.open {
   right: 0;
+}
+.cart-sidebar.open {
+  right: 0;
+}
+
+.cart-header {
+  background-color: #343a40;
+  color: white;
+}
+
+.cart-footer {
+  padding: 1rem;
+  background-color: #f8f9fa;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

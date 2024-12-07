@@ -29,6 +29,21 @@ export class ProductoController {
         });
     }
 
+    public getAllProductoA(): Promise<any[]> {
+        return new Promise((resolve, reject) => {
+            this.productoService.getAllProductosA().subscribe({
+                next: (data) => {
+                    this.openSnackBar('Productos obtenidos correctamente', '😎👌');
+                    resolve(data);
+                },
+                error: (error) => {
+                    this.openSnackBar('Error al obtener los productos', '🤯😈');
+                    reject(error);
+                },
+            });
+        });
+    }
+
     public getProductoById(id: number): Promise<Fabricacion> {
         return new Promise((resolve, reject) => {
             this.productoService.getProductoById(id).subscribe({

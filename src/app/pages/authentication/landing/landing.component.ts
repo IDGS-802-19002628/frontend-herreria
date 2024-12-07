@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductoController } from '../../producto/controller/producto.controller';
+import { HttpClient } from '@angular/common/http'; 
 
 interface Product {
   id: number;
@@ -23,68 +25,132 @@ export class LandingComponent implements OnInit {
     { id: 5, name: 'Juguetes' }
   ];
 
-  products: Product[] = [
-    { id: 1, name: 'Producto 1', description: 'Protección estándar para puertas de hogar', price: 25.00, imageUrl: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Producto 2', description: 'Protección avanzada con múltiples capas de seguridad', price: 40.00, imageUrl: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Producto 3', description: 'Descripción del producto 3. Ideal para aquellos que buscan...', price: 15.00, imageUrl: 'https://via.placeholder.com/150' },
-    { id: 4, name: 'Producto 4', description: 'Descripción del producto 4. No te lo puedes perder...', price: 30.00, imageUrl: 'https://via.placeholder.com/150' },
-    { id: 5, name: 'Producto 5', description: 'Descripción del producto 5. ¡Compra ahora y ahorra!', price: 35.00, imageUrl: 'https://via.placeholder.com/150' },
-    { id: 6, name: 'Producto 6', description: 'Descripción del producto 6. Un producto de alta calidad...', price: 20.00, imageUrl: 'https://via.placeholder.com/150' }
-  ];
-
+  products: Product[] = [];
   cart: Product[] = [];
-  purchases: Product[] = [];
+  purchases: any[] = [];
+  
   showCart = false;
   showPurchases = false;
+  isLoading = false;
+  userName: string | null = null;
+  userId: number | null = null;
+
+  constructor(
+    private productoController: ProductoController,
+    private http: HttpClient 
+  ) { }
 
   ngOnInit() {
+    this.loadUser(); 
     this.loadPurchases();
+    this.getAllProductos();
   }
 
+  loadUser() {
+    const user = localStorage.getItem('usuario');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      this.userName = parsedUser.nombre;
+      this.userId = parsedUser.id;
+      console.log(this.userName, this.userId);
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('usuario');
+    this.userName = null;
+    this.userId = null; 
+    localStorage.removeItem('purchases'); 
+    window.location.href = '/authentication/login'; 
+  }
+
+  async getAllProductos() {
+    this.isLoading = true;
+    try {
+      const response = await this.productoController.getAllProductoA();
+      this.products = response.map((product: any) => ({
+        id: product.id,
+        name: product.fabricacion.nombreProducto,
+        description: product.cantidad,
+        price: product.precio,
+        imageUrl: product.fabricacion.imagenProducto || 'https://via.placeholder.com/150'
+      }));
+    } catch (error) {
+      console.error('Error al obtener productos', error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+ 
+
   addToCart(product: Product) {
-    this.cart.push(product);
+    if (this.userName) {
+      this.cart.push(product);
+    } else {
+      window.location.href = '/authentication/login';
+    }
   }
 
   toggleCart() {
     this.showCart = !this.showCart;
   }
 
+  togglePurchases() {
+    this.showPurchases = !this.showPurchases;
+  }
+
   getTotal(): number {
     return this.cart.reduce((total, item) => total + item.price, 0);
   }
 
-  checkout() {
+  async checkout() {
     if (this.cart.length > 0) {
-      // Agregar productos al historial de compras
-      this.purchases = [...this.purchases, ...this.cart];
-      this.savePurchases();
-      this.cart = [];
-      this.showCart = false;
-      alert('Compra realizada con éxito.');
+      const folio = 'FOLIO-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+      const userId = localStorage.getItem('usuario');
+      const ventaData = {
+        fecha: new Date().toISOString(),
+        folio: folio,
+        usuarioId: this.userId || 0  
+      };
+      try {
+        const response = await this.http.post('http://localhost:5055/api/Venta/PostVenta', ventaData).toPromise();
+        this.purchases = [...this.purchases, ...this.cart];
+        this.savePurchases();
+        this.cart = [];
+        this.showCart = false;
+        alert('Compra realizada con éxito.');
+      } catch (error) {
+        console.error('Error al realizar la compra', error);
+        alert('Hubo un error al procesar tu compra. Intenta nuevamente.');
+      }
     } else {
       alert('El carrito está vacío.');
     }
-  }
-
-  togglePurchases() {
-    this.showPurchases = !this.showPurchases;
   }
 
   savePurchases() {
     localStorage.setItem('purchases', JSON.stringify(this.purchases));
   }
 
-  loadPurchases() {
-    const savedPurchases = localStorage.getItem('purchases');
-    if (savedPurchases) {
-      this.purchases = JSON.parse(savedPurchases);
+  async loadPurchases() {
+    if (this.userId) {
+      try {
+        const response = await this.http.get<any[]>(`http://localhost:5055/api/Venta/GetVentaByUsuario/${this.userId}`).toPromise();
+        if (response && response.length > 0) {
+          this.purchases = response;
+          console.log(this.purchases);
+          
+        }
+      } catch (error) {
+        console.error('Error al obtener las compras del usuario', error);
+      }
     }
   }
+
   removeFromCart(product: Product) {
     const index = this.cart.indexOf(product);
     if (index > -1) {
       this.cart.splice(index, 1);
     }
   }
-  
 }

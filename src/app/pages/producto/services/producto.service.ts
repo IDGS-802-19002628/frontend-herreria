@@ -13,6 +13,7 @@ import { SolicitudProduccion } from '../interfaces/prod';
 export class ProductoService {
 
     private URL_PRODUCTOS = `${environment.ENDPOINT_SOLDALINE}api/Fabricacion/all`;
+    private URL_PRODUCTOA = `${environment.ENDPOINT_SOLDALINE}api/Inventario/producto`;
     private URL_CREARPRODUCTOS = `${environment.ENDPOINT_SOLDALINE}api/Fabricacion/register`;
     private URL_RECETAS = `${environment.ENDPOINT_SOLDALINE}api/Receta/all`;
     private URL_CREARRECETAS = `${environment.ENDPOINT_SOLDALINE}api/Receta/create`;
@@ -27,6 +28,10 @@ export class ProductoService {
         return this.http.get<Fabricacion[]>(this.URL_PRODUCTOS)
             .pipe(catchError(err => throwError(() => err)));
     }
+    public getAllProductosA(): Observable<any[]> {
+      return this.http.get<any[]>(this.URL_PRODUCTOA)
+          .pipe(catchError(err => throwError(() => err)));
+  }
     public getAllRcetas(): Observable<receta[]> {
         return this.http.get<receta[]>(this.URL_RECETAS)
             .pipe(catchError(err => throwError(() => err)));

@@ -1,13 +1,16 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div class="container">
-      <a class="navbar-brand font-weight-bold" >Soldaline</a>
+      <a class="navbar-brand font-weight-bold">Soldaline</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+        <ul class="navbar-nav">
+          <li *ngIf="userName" class="nav-item">
+            <a class="nav-link text-uppercase">Hola, {{ userName }}</a>
+          </li>
+          <li *ngIf="!userName" class="nav-item">
             <a class="nav-link text-uppercase" href="/authentication/login">Iniciar Sesión</a>
           </li>
           <li class="nav-item">
@@ -15,15 +18,31 @@
           </li>
           <li class="nav-item">
             <a class="nav-link text-uppercase" href="javascript:void(0);" (click)="toggleCart()">Carrito 
+             
               <i class="fas fa-shopping-cart"></i>
               <span class="badge badge-light" *ngIf="cart.length > 0">{{ cart.length }}</span>
             </a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          <li *ngIf="userName" class="nav-item">
+            <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+            <button class="btn btn-outline-light mx-2" (click)="togglePurchases()">Ver Compras Realizadas</button>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </header>
+
+
+
+
+
+
+
+
 
 <div class="hero">
   <div class="container text-center">
@@ -42,7 +61,7 @@
           <img [src]="product.imageUrl" class="card-img-top" alt="{{ product.name }}">
           <div class="card-body text-center">
             <h5 class="card-title font-weight-bold">{{ product.name }}</h5>
-            <p class="text-muted">{{ product.description }}</p>
+            <p class="text-muted">Cantidad: {{ product.description }}</p>
             <p class="price text-success font-weight-bold">${{ product.price }}</p>
             <button class="btn btn-primary btn-block btn-sm" (click)="addToCart(product)">
               Agregar al Carrito
@@ -68,6 +87,19 @@
   </ul>
   <div class="cart-footer p-3">
     <p class="text-right font-weight-bold">Total: ${{ getTotal() }}</p>
-    <button class="btn btn-success btn-block">Proceder al Pago</button>
+    <button (click)="checkout()" class="btn btn-success btn-block" [disabled]="cart.length === 0">Proceder al Pago</button>
   </div>
+</aside>
+
+<aside class="cart-sidebar" [class.open]="showPurchases">
+  <div class="cart-header d-flex justify-content-between align-items-center bg-dark text-white p-3">
+    <h4>Compras Realizadas</h4>
+    <button class="btn btn-outline-light btn-sm" (click)="togglePurchases()">Cerrar</button>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of purchases">
+      {{ item.folio }}
+      <span class="text-muted">${{ item.fecha }}</span>
+    </li>
+  </ul>
 </aside>
