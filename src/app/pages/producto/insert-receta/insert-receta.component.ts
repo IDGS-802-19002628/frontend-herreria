@@ -78,8 +78,9 @@ export class InsertRecetaComponent implements OnInit {
 
   addMaterial(material: string): void {
     const materialesArray = this.insertReceta.get('materiales') as FormArray;
-    materialesArray.push(this.fb.control(material)); // Agrega un material al FormArray
-  }
+    materialesArray.push(this.fb.group({ material }));
+}
+
 
   removeMaterial(index: number): void {
     const materialesArray = this.insertReceta.get('materiales') as FormArray;

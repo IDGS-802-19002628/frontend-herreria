@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Login, LoginResponse } from '../interfaces/login';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { PermisosResponse } from '../interfaces/permisos';
 
 @Injectable({
@@ -15,25 +15,30 @@ export class AuthService {
   private URL_LOGIN = `${environment.ENDPOINT_SOLDALINE}api/Usuario/Login`;
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
- 
-
-  public singIn(data: LoginResponse): Observable<LoginResponse> {
+  public singIn(data: Login): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.URL_LOGIN}`, data)
       .pipe(
-        catchError(err => throwError(() => err))
+        // Cuando la respuesta es exitosa, guardamos los datos
+        tap((response: LoginResponse) => {
+          localStorage.setItem('token', 'valor_de_token'); // Guárdalo en localStorage si es necesario
+          localStorage.setItem('usuario', JSON.stringify(response)); // Guarda toda la info del usuario
+        }),
+        catchError(err => throwError(() => err)) // Manejo de errores
       );
   }
 
- 
-
-  public isAuthenticated(): boolean {
-    const token = sessionStorage.getItem('token');
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
-      return true;
-    } else {
-      return false;
-    }
+  // Verifica si el usuario está autenticado
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token; // Devuelve true si el token existe
   }
+
+  getUserRole(): string {
+    const user = JSON.parse(localStorage.getItem('usuario') || '{}');
+    return user.rol || '';  // Asegúrate de que el objeto tenga el rol
+  }
+  
+  
 
 
 

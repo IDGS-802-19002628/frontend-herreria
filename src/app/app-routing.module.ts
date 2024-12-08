@@ -1,4 +1,3 @@
-import { MaterialModule } from 'src/app/material.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
@@ -21,7 +20,8 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./pages/pages.module').then((m) => m.PagesModule),
-          
+        canActivate: [AuthGuard], // Aplicamos el AuthGuard aquí
+        data: { roles: ['administrador'] } 
       },
       {
         path: 'ui-components',
@@ -29,50 +29,40 @@ const routes: Routes = [
           import('./pages/ui-components/ui-components.module').then(
             (m) => m.UicomponentsModule
           ),
-          
+        canActivate: [AuthGuard], // Aplicamos el AuthGuard aquí
       },
-
-    
-
-   
-      
       {
         path: 'proveedores',
         loadChildren: () =>
           import('./pages/proveedor/proveedor.module').then((m) => m.ProveedorModule),
-          
+        canActivate: [AuthGuard], // Aplicamos el AuthGuard aquí
       },
-      
       {
         path: 'productos',
         loadChildren: () =>
           import('./pages/producto/producto.module').then((m) => m.ProductoModule),
-          
+        canActivate: [AuthGuard], // Aplicamos el AuthGuard aquí
       },
       {
         path: 'categorias',
         loadChildren: () =>
           import('./pages/categoria/categoria.module').then((m) => m.CategoriaModule),
-          
+        canActivate: [AuthGuard], // Aplicamos el AuthGuard aquí
       },
       {
         path: 'usuarios',
         loadChildren: () =>
           import('./pages/usuario/usuario.module').then((m) => m.UsuarioModule),
-          
+        canActivate: [AuthGuard], // Aplicamos el AuthGuard aquí
       },
       {
         path: 'materiales',
         loadChildren: () =>
           import('./pages/material/material.module').then((m) => m.MaterialModule),
-          
+        canActivate: [AuthGuard], // Aplicamos el AuthGuard aquí
       },
-  
-      
     ],
   },
-
-  
   {
     path: '',
     component: BlankComponent,
@@ -84,7 +74,6 @@ const routes: Routes = [
             (m) => m.AuthenticationModule
           ),
       },
-     
     ],
   },
   {

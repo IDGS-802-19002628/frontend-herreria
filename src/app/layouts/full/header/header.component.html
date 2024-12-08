@@ -4,26 +4,17 @@
     <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
   </button>
 
-
-           
-
-        
-            <ul class="list-route flex md:justify-content-end">
-               
-                <li>
-                    
-                    <span></span>
-                </li>
-            </ul>
-
-
-
   <span class="flex-1-auto"></span>
+
+  <!-- Mostrar nombre del usuario -->
+  <span class="username m-r-10">{{ usuarioNombre || 'Usuario' }}</span>
+
+  <!-- Notificaciones -->
   <button mat-icon-button aria-label="Notifications" [matMenuTriggerFor]="notifications">
     <i-tabler class="d-flex" name="bell" matBadge="{{numNotificaciones}}" matBadgeColor="warn" *ngIf="numNotificaciones > 0"></i-tabler>
     <i-tabler class="d-flex" name="bell" *ngIf="numNotificaciones === 0"></i-tabler>
   </button>
-  
+
   <mat-menu #notifications="matMenu" xPosition="before" class="topbar-dd cardWithShadow">
     <div class="p-x-12 p-y-8">
       <h3 class="m-0">Notificaciones</h3>
@@ -47,34 +38,18 @@
     </button>
   </mat-menu>
 
-
-  <button
-    mat-icon-button
-    [matMenuTriggerFor]="profilemenu"
-    aria-label="Notifications" class="m-l-10"
-  >
-    <img
-      src="/assets/images/profile/user.jpg"
-      class="rounded-circle object-cover"
-      width="35"
-    />
+  <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Profile" class="m-l-10">
+    <img src="/assets/images/profile/user.jpg" class="rounded-circle object-cover" width="35" />
   </button>
   <mat-menu #profilemenu="matMenu" xPosition="before" class="topbar-dd cardWithShadow">
     <button mat-menu-item [routerLink]="['/profile']">
-      <mat-icon class="d-flex align-items-center"
-        ><i-tabler name="user" class="icon-18 d-flex"></i-tabler></mat-icon
-      >Mi cuenta
+      <mat-icon class="d-flex align-items-center">
+        <i-tabler name="user" class="icon-18 d-flex"></i-tabler>
+      </mat-icon>
+      Mi cuenta
     </button>
-    
-
     <div class="p-x-12 m-t-12">
-      <a
-        (click)="logout()"
-        mat-flat-button
-        color="primary"
-        class="w-100"
-        >Logout</a
-      >
+      <a (click)="logout()" mat-flat-button color="primary" class="w-100">Logout</a>
     </div>
   </mat-menu>
 </mat-toolbar>

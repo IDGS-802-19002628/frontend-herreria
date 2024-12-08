@@ -8,17 +8,14 @@ export const navItemsAdmistrador: NavItem[] = [
     displayName: 'Dashboard',
     iconName: 'layout-dashboard',
     route: '/dashboard',
+    permisos: ['administrador', 'produccion'], // Solo admin y producción
   },
-
   {
     displayName: 'Usuarios',
     iconName: '',
     route: '/usuarios',
-
+    permisos: ['administrador'], // Solo admin
   },
-  
-
-  
   {
     navCap: 'Inventario',
   },
@@ -26,14 +23,13 @@ export const navItemsAdmistrador: NavItem[] = [
     displayName: 'Proveedores',
     iconName: '',
     route: '/proveedores',
+    permisos: ['administrador', 'almacen'], // Admin y almacén
   },
- 
   {
     displayName: 'Productos',
     iconName: '',
     route: '/productos',
+    permisos: ['administrador', 'almacen', 'produccion'], // Admin, almacén y producción
   },
-
-
 ];
 

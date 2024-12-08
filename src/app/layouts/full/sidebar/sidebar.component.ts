@@ -10,22 +10,19 @@ import { V } from '@angular/cdk/keycodes';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
+  navItems: NavItem[] = []; // Lista filtrada
 
-  navItems : NavItem[] = [];
-  lstPermisos: string[] = [];
   constructor(
     public navService: NavService,
     private jwtHelper: JwtHelperService,
     private authService: AuthService
-    
-
   ) {}
 
- async ngOnInit() {
-
-  this.navItems = navItemsAdmistrador;
+  ngOnInit(): void {
+    this.navItems = this.navItemsAdmistrador; // Asigna la lista completa al cargar
   }
 
-  
+  navItemsAdmistrador = navItemsAdmistrador;
 }
+

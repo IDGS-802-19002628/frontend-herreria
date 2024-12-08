@@ -56,17 +56,32 @@ export class HeaderComponent  implements OnInit {
     });
   }
   
-  
+  public getNombreUsuario(): string {
+    const usuario = localStorage.getItem('usuario'); // Cambia 'usuario' por la clave adecuada
+    if (usuario) {
+      try {
+        const userObject = JSON.parse(usuario);
+        return userObject.nombre; // Ajusta 'nombre' al campo real del nombre del usuario
+      } catch (error) {
+        console.error('Error al parsear el usuario:', error);
+        return 'Usuario no identificado';
+      }
+    }
+    return 'Usuario no identificado';
+  }
+  public usuarioNombre: string = '';
 
   public async ngOnInit() {
     await this.getDatosUsuario();
     this.getNotificaciones();
+    this.usuarioNombre = this.getNombreUsuario(); // Recuperar y asignar el nombre del usuario
     
     setInterval(() => {
       this.getNotificaciones();
     }, 55000);
-
   }
+    
+
   private detectRoute() {
     this.subscriber = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
