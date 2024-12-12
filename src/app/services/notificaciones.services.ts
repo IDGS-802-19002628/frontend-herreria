@@ -1,58 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable, catchError, throwError } from 'rxjs';
-import { Departamento, Notificaciones, NotificacionesInsert, NotificacionesInsertResponse, NotificacionesRequest } from '../interfaces/notificaciones';
-import { CorreosRequest } from '../interfaces/correos';
-
+import { BehaviorSubject } from 'rxjs';
+import { Notificaciones } from '../interfaces/notificaciones';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificacionesService {
+  private lstNotificaciones: Notificaciones[] = [];
+  private notificacionesSubject = new BehaviorSubject<Notificaciones[]>([]);
+  notificaciones$ = this.notificacionesSubject.asObservable();
 
-    private URL_NOTIFICACIONES= environment.ENDPOINT_NOTIFICACIONES;
-    private URL_INSCRIPCIONES = environment.ENDPOINT_INSCRIPCIONES;
-    constructor(
-        private http: HttpClient
-    ) { }
+  constructor() {
+    this.startNotificationCleanup();
+  }
 
+  addNotificacion(notificacion: Notificaciones): void {
+    notificacion.timestamp = new Date().getTime(); // Agrega un timestamp
+    this.lstNotificaciones.push(notificacion);
+    this.notificacionesSubject.next(this.lstNotificaciones);
+  }
 
-    public getNotificaciones($data : any) : Observable<Notificaciones[]> {
-        return this.http.post<Notificaciones[]>(`${this.URL_NOTIFICACIONES}getNotificaciones`, $data)
-        .pipe(
-            catchError( err => throwError(() =>  err))
-        );
-    }
-
-    public getDepartamentosUsuario(chrClaveUsuario : string) : Observable<Departamento[]> {
-        return this.http.get<Departamento[]>(`${this.URL_NOTIFICACIONES}getDepartamentosUsuario/${chrClaveUsuario}`)
-        .pipe(
-            catchError( err => throwError(() =>  err))
-        );
-    }
-
-    public insertNotificacion($data : NotificacionesInsert) : Observable<NotificacionesInsertResponse> {
-        let data = {data : $data};
-        return this.http.post<NotificacionesInsertResponse>(`${this.URL_NOTIFICACIONES}insertNotificacion`, data)
-        .pipe(
-            catchError( err => throwError(() =>  err))
-        );
-    }
-
-    public updateNotificacion($data : any) : Observable<NotificacionesInsertResponse> {
-        return this.http.put<NotificacionesInsertResponse>(`${this.URL_NOTIFICACIONES}updateNotificacion`, $data)
-        .pipe(
-            catchError( err => throwError(() =>  err))
-        );
-    }
-
-    public sendCorreoElectronico($data : CorreosRequest) : Observable<any> {
-        return this.http.post<any>(`${this.URL_INSCRIPCIONES}sendCorreoElectronico`, $data)
-        .pipe(
-            catchError( err => throwError(() =>  err))
-        );
-    }
-
+  private startNotificationCleanup(): void {
+    setInterval(() => {
+      const now = new Date().getTime();
+      this.lstNotificaciones = this.lstNotificaciones.filter(
+        (n) => n.timestamp !== undefined && now - n.timestamp < 30 * 60 * 1000 // Verifica que timestamp exista
+      );
+      this.notificacionesSubject.next(this.lstNotificaciones);
+    }, 60 * 1000); // Verificar cada minuto
+  }
+  
 }
-

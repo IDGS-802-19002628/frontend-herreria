@@ -25,6 +25,7 @@ export class InsertProductoComponent {
       categoriaProteccion: ['Hogar'], // Valor predeterminado
 
       nombre: ['', Validators.required],
+      precio: [1, Validators.required],
       imagen: [null],   // Validar imagen como obligatorio 
       estatus: [1, Validators.required],  // Campo de estatus, 1 como activo por defecto
     });
@@ -40,6 +41,7 @@ export class InsertProductoComponent {
       formData.append('NombreProducto', this.insertProducto.get('nombre')?.value);
       formData.append('Estatus', this.insertProducto.get('estatus')?.value.toString()); // Convertir a string si es necesario
       formData.append('Categoria', this.insertProducto.get('categoriaProteccion')?.value);
+      formData.append('Precio', this.insertProducto.get('precio')?.value);
   
       // Agregar imagen
       if (this.selectedImage) {
@@ -51,7 +53,7 @@ export class InsertProductoComponent {
         next: (response) => {
          
           this.openSnackBar('Producto registrado correctamente', '😎👌');
-          this.router.navigate(['/productos']);
+          this.router.navigate(['/productos/insert-receta']);
           
         },
         error: (error) => {

@@ -1,19 +1,6 @@
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <mat-card class="cardWithShadow">
-  <mat-card class="nav_usuarios">
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-        
-        <a mat-tab-link routerLink="/productos" [active]="isActive('/productos/list-productos')">Productos</a>
-        <a mat-tab-link routerLink="/productos/list-receta"  [active]="isActive('/productos/list-proceso')">Proceso Fabricación</a>
-        <a mat-tab-link routerLink="/productos/list-prod"  [active]="isActive('/productos/list-prod')">Producción</a>
 
-    </nav>
-    <mat-tab-nav-panel #tabPanel>
-        <div class="p-3">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-tab-nav-panel>
-</mat-card>
   <mat-card-content class="p-24">
     <mat-card-title>Producciones</mat-card-title>
     <mat-card-subtitle class="mat-body-1">Listado de Producciones</mat-card-subtitle>
@@ -62,13 +49,21 @@
           <ng-container matColumnDef="Acciones">
             <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
             <mat-cell *matCellDef="let element">
-              <button mat-button color="primary" (click)="mostrarAlerta()">
-                Mostrar Alerta
+              <!-- Mostrar botón 'Iniciar' solo si el estado es 1 (Pendiente producción) -->
+              <button *ngIf="element.estatus === 1" mat-button (click)="iniciarPro(element.solicitudId)">
+                Iniciar
+              </button>
+            
+              <!-- Mostrar botón 'Terminar' solo si el estado es 2 (Inicio producción) -->
+              <button *ngIf="element.estatus === 2" mat-button color="primary" (click)="terminarPro(element.solicitudId)">
+                Terminar
               </button>
             </mat-cell>
+            
           </ng-container>
           
-        
+          
+          
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

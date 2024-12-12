@@ -20,6 +20,8 @@ export class ProductoService {
     private URL_PRODUCCION = `${environment.ENDPOINT_SOLDALINE}api/Produccion/getAll`;
     private URL_CREARPRODUCCION = `${environment.ENDPOINT_SOLDALINE}api/Produccion/solicitarProduccion`;
     private URL_INICIARPRODUCCION = `${environment.ENDPOINT_SOLDALINE}api/Produccion/iniciarProduccion`;
+    private URL_TERMINARPRODUCCION = `${environment.ENDPOINT_SOLDALINE}api/Produccion/terminarProduccion`;
+
 
     constructor(private http: HttpClient) { }
 
@@ -39,6 +41,13 @@ export class ProductoService {
     public getAllProduccion(): Observable<SolicitudProduccion[]> {
       return this.http.get<SolicitudProduccion[]>(this.URL_PRODUCCION)
           .pipe(catchError(err => throwError(() => err)));
+  }
+
+   public iniciarProduccion(request: any): Observable<any> {
+    return this.http.post(`${this.URL_INICIARPRODUCCION}`, request);
+  }
+  public terminarProduccion(request: any): Observable<any> {
+    return this.http.post(`${this.URL_TERMINARPRODUCCION}`, request);
   }
 
     // Obtiene un producto por ID

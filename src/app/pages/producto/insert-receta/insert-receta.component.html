@@ -54,16 +54,18 @@
             </mat-form-field>
             
 
-      <!-- Mostrar los materiales seleccionados -->
-      <div *ngIf="materiales.length > 0">
-        <h3>Materiales Seleccionados</h3>
-        <ul>
-          <li *ngFor="let material of materiales.controls; let i = index">
-            {{ material.value }}
-            <button type="button" (click)="removeMaterial(i)">Eliminar</button>
-          </li>
-        </ul>
-      </div>
+            <div *ngIf="materiales.length > 0">
+              <h3>Materiales Seleccionados</h3>
+              <ul style="list-style-type: none; padding: 0;">
+                <li *ngFor="let material of materiales.controls; let i = index" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                  <span>{{ material.value.material }}</span>
+                  <button mat-icon-button color="warn" type="button" (click)="removeMaterial(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </li>
+              </ul>
+            </div>
+            
 
 
       <!-- Otros campos: Cantidad, Descripción, Fecha de Creación -->

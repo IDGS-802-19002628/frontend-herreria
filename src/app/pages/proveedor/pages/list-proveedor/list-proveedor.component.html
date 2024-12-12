@@ -1,18 +1,6 @@
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <mat-card class="cardWithShadow">
-  <mat-card class="nav_usuarios">
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-        
-        <a mat-tab-link routerLink="/proveedores/list-proveedores" [active]="isActive('/usuarios/list-proveedores')">Proveedores</a>
-        <a mat-tab-link routerLink="/proveedores/list-material"  [active]="isActive('/usuarios/list-material')">Compra de Material</a>
 
-    </nav>
-    <mat-tab-nav-panel #tabPanel>
-        <div class="p-3">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-tab-nav-panel>
-</mat-card>
     <mat-card-content class="p-24">
         <mat-card-title>Proveedores</mat-card-title>
         <mat-card-subtitle class="mat-body-1">Listado de proveedores</mat-card-subtitle>

@@ -68,6 +68,8 @@ export class LandingComponent implements OnInit {
     this.isLoading = true;
     try {
       const response = await this.productoController.getAllProductoA();
+      console.log(response);
+      
       this.products = response.map((product: any) => ({
         id: product.id,
         name: product.fabricacion.nombreProducto,

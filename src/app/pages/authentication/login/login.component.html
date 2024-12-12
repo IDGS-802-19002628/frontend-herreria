@@ -3,8 +3,15 @@
     <div class="col-lg-4 d-flex align-items-center">
       <mat-card class="cardWithShadow boxed-auth">
         <mat-card-content class="p-32">
+          <!-- Botón para regresar -->
+          <div class="position-absolute top-left m-2">
+            <button mat-icon-button color="primary" [routerLink]="['/authentication/lading']">
+              <mat-icon>arrow_back</mat-icon>
+            </button>
+          </div>
+
           <div class="text-center">
-            <a [routerLink]="['/dashboard']">
+            <a [routerLink]="['/authentication/lading']">
               <img
                 src="./assets/images/logo.png"
                 class="align-middle m-2"

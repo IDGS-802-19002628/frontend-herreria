@@ -1,19 +1,6 @@
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <mat-card class="cardWithShadow">
-  <mat-card class="nav_usuarios">
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-        
-        <a mat-tab-link routerLink="/productos" [active]="isActive('/productos/list-productos')">Productos</a>
-        <a mat-tab-link routerLink="/productos/list-receta"  [active]="isActive('/productos/list-proceso')">Proceso Fabricación</a>
-        <a mat-tab-link routerLink="/productos/list-prod"  [active]="isActive('/productos/list-prod')">Producción</a>
 
-    </nav>
-    <mat-tab-nav-panel #tabPanel>
-        <div class="p-3">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-tab-nav-panel>
-</mat-card>
   <mat-card-content class="p-24">
     <mat-card-title>Productos</mat-card-title>
     <mat-card-subtitle class="mat-body-1">Listado de productos</mat-card-subtitle>

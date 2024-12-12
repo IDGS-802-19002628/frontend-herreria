@@ -33,11 +33,12 @@ export class ProductoController {
         return new Promise((resolve, reject) => {
             this.productoService.getAllProductosA().subscribe({
                 next: (data) => {
-                    this.openSnackBar('Productos obtenidos correctamente', '😎👌');
+                   console.log(data);
+                   
                     resolve(data);
                 },
                 error: (error) => {
-                    this.openSnackBar('Error al obtener los productos', '🤯😈');
+                   
                     reject(error);
                 },
             });

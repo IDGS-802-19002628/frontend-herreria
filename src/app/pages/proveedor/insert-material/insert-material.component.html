@@ -1,6 +1,6 @@
 <mat-card class="cardWithShadow">
     <mat-card-content class="p-24">
-      <mat-card-title>Registrar Producto en Inventario</mat-card-title>
+      <mat-card-title>Compra de material</mat-card-title>
     </mat-card-content>
   
     <mat-card-content class="p-24">
@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-12 col-md-6 col-lg-6 mb-3">
             <mat-form-field appearance="fill" class="w-100">
-              <mat-label>Producto</mat-label>
+              <mat-label>Proveedor</mat-label>
               <mat-select formControlName="idFabricacion">
                 <mat-option *ngFor="let producto of Producto" [value]="producto.id">
                   {{ producto.nombreEmpresa }}

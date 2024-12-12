@@ -29,6 +29,7 @@ export class InsertRecetaComponent implements OnInit {
       idFabricacion: [0, Validators.required],
       tipoProteccion: ['Protección', Validators.required],
       materiales: this.fb.array([]), // FormArray para manejar múltiples materiales
+     
       cantidad: [1, [Validators.required, Validators.min(1)]],
       descripcion: ['', Validators.required],
       fechaCreacion: [new Date().toISOString(), Validators.required],
@@ -76,10 +77,37 @@ export class InsertRecetaComponent implements OnInit {
     }
   }
 
-  addMaterial(material: string): void {
-    const materialesArray = this.insertReceta.get('materiales') as FormArray;
-    materialesArray.push(this.fb.group({ material }));
-}
+  addMaterial(nombreMaterial: string): void {
+    if (!nombreMaterial) {
+      this.snackBar.open('Debe seleccionar un material válido.', 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'top',
+      });
+      return;
+    }
+  
+    // Verificar si el material ya está en la lista
+    const existe = this.materiales.controls.some(
+      (control) => control.value.material === nombreMaterial
+    );
+  
+    if (existe) {
+      // Notificar al usuario que el material ya está agregado
+      this.snackBar.open(`El material "${nombreMaterial}" ya está agregado.`, 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'top',
+      });
+      return;
+    }
+  
+    // Si no existe, agregar el nuevo material
+    const material = { material: nombreMaterial };
+    this.materiales.push(this.fb.group(material));
+   
+  }
+  
+  
+  
 
 
   removeMaterial(index: number): void {
@@ -89,12 +117,23 @@ export class InsertRecetaComponent implements OnInit {
 
   onSubmit(): void {
     if (this.insertReceta.valid) {
-      const recetaDTO = this.insertReceta.value;
+      // Crear el objeto de receta incluyendo la lista de materiales seleccionados
+      const recetaDTO = {
+        ...this.insertReceta.value,
+        materiales: this.materiales.value.map((material: any) => ({
+          materiales: material.material
+          //cantidad: this.insertReceta.get('cantidad')?.value, // Usar cantidad global o específica
+          //descripcion: this.insertReceta.get('descripcion')?.value // Usar descripción global o específica
+        }))
+      
+      };
+  
       console.log('Datos enviados:', recetaDTO);
+  
       this.productoService.insertReceta(recetaDTO).subscribe({
         next: (response) => {
           this.showSnackBar('Receta creada exitosamente.', 'Cerrar', 'success-snackbar');
-          this.router.navigate(['/productos/list-receta']);
+          this.router.navigate(['/productos/insert-produccion']);
         },
         error: (err) => {
           console.error('Error al crear receta:', err);
@@ -105,6 +144,7 @@ export class InsertRecetaComponent implements OnInit {
       this.checkFormErrors();
     }
   }
+  
 
   checkFormErrors(): void {
     const controls = this.insertReceta.controls;
